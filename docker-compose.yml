@@ -1,0 +1,14 @@
+services:
+  cronpilot:
+    build: .
+    image: ghcr.io/orangecoding/cronpilot:latest
+    container_name: cronpilot
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./db:/data
+    environment:
+      PORT: 3001
+      HOST: 0.0.0.0
+      DB_PATH: /data/cronpilot.db
+    restart: unless-stopped

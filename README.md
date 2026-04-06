@@ -1,6 +1,7 @@
 # CronPilot
 
 ![Tests](https://github.com/orangecoding/cronpilot/actions/workflows/test.yml/badge.svg)
+![Docker](https://github.com/orangecoding/cronpilot/actions/workflows/docker.yml/badge.svg)
 
 A self-hosted cron job manager with a modern, mobile-friendly web UI. Create, edit, enable, disable, and monitor scheduled tasks that run shell scripts or inline commands. Optional push notifications via ntfy.
 
@@ -25,6 +26,28 @@ A self-hosted cron job manager with a modern, mobile-friendly web UI. Create, ed
 - Optional push notifications via [ntfy](https://ntfy.sh): notify on error, on every run, or both
 - SQLite database - no external dependencies required
 - Responsive UI that works on desktop and mobile
+
+---
+
+## Docker
+
+The easiest way to run CronPilot is with Docker:
+
+```bash
+docker run -d \
+  --name cronpilot \
+  -p 3001:3001 \
+  -v $(pwd)/db:/data \
+  ghcr.io/orangecoding/cronpilot:latest
+```
+
+Or with docker compose - copy `docker-compose.yml` from this repo and run:
+
+```bash
+docker compose up -d
+```
+
+The database is stored in the `/data` volume. Open [http://localhost:3001](http://localhost:3001) in your browser.
 
 ---
 

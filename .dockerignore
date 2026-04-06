@@ -1,0 +1,12 @@
+node_modules
+server/node_modules
+client/node_modules
+client/dist
+.git
+.github
+.husky
+.env
+*.db
+*.db-shm
+*.db-wal
+db/
