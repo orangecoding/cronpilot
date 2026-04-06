@@ -49,6 +49,14 @@ docker compose up -d
 
 The database is stored in the `/data` volume. Open [http://localhost:3001](http://localhost:3001) in your browser.
 
+### Configuration
+
+To configure Docker, create a `.env` file next to `docker-compose.yml`:
+
+Copy the .env.example.
+
+Docker Compose automatically reads this file. `HOST` and `DB_PATH` are fixed inside the container and cannot be overridden.
+
 ---
 
 ## Prerequisites
@@ -89,6 +97,7 @@ Available options:
 | `DB_PATH` | `./cronpilot.db` | Path to the SQLite database file |
 | `EXEC_TIMEOUT_MS` | `1800000` | Max execution time per job in milliseconds (30 min) |
 | `KEEP_MAX_FOR_HISTORY` | `5` | Maximum run history entries kept per job; older runs are deleted automatically |
+| `LOG_LEVEL` | `info` | Log verbosity: `error`, `warn`, `info`, `debug` |
 
 ---
 

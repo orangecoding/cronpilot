@@ -4,11 +4,14 @@ services:
     image: ghcr.io/orangecoding/cronpilot:latest
     container_name: cronpilot
     ports:
-      - "3001:3001"
+      - "${PORT:-3001}:${PORT:-3001}"
     volumes:
       - ./db:/data
     environment:
-      PORT: 3001
+      PORT: ${PORT:-3001}
       HOST: 0.0.0.0
       DB_PATH: /data/cronpilot.db
+      EXEC_TIMEOUT_MS: ${EXEC_TIMEOUT_MS:-1800000}
+      KEEP_MAX_FOR_HISTORY: ${KEEP_MAX_FOR_HISTORY:-5}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
     restart: unless-stopped
