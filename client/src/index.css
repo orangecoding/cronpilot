@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --color-base:          #080b14;
+  --color-surface:       #0d1120;
+  --color-elevated:      #121828;
+  --color-border:        #1a2540;
+  --color-border-bright: #253660;
+  --color-accent:        #e04a38;
+  --color-accent-dim:    #c13827;
+  --color-accent-glow:   #e04a3820;
+  --color-text:          #e1e7f0;
+  --color-muted:         #8899bb;
+  --color-faint:         #3d5070;
+  --color-success:       #34d399;
+  --color-success-dim:   #065f46;
+  --color-error:         #fb7185;
+  --color-error-dim:     #881337;
+  --color-warning:       #fbbf24;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: var(--color-base);
+  background-image: radial-gradient(ellipse at 60% 0%, rgba(224, 74, 56, 0.07) 0%, transparent 60%),
+                    radial-gradient(ellipse at 10% 80%, rgba(193, 56, 39, 0.05) 0%, transparent 50%);
+  color: var(--color-text);
+  font-family: 'Outfit', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-surface); }
+::-webkit-scrollbar-thumb { background: var(--color-border-bright); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-muted); }
+
+/* Dialog centering - browser UA styles are not reliable across all engines */
+dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  border: none;
+  padding: 0;
+  background: transparent;
+}
+
+dialog::backdrop {
+  background: rgba(4, 7, 18, 0.8);
+  backdrop-filter: blur(4px);
+}
+
+code, pre, .font-mono {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Glow effects */
+.glow-accent {
+  box-shadow: 0 0 20px var(--color-accent-glow), 0 0 40px var(--color-accent-glow);
+}
+
+.border-glow {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 12px var(--color-accent-glow);
+}

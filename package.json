@@ -1,0 +1,37 @@
+{
+  "name": "cronpilot",
+  "version": "1.0.0",
+  "author": "Christian Kellner",
+  "license": "Apache-2.0",
+  "scripts": {
+    "dev:server": "yarn --cwd server dev",
+    "dev:client": "yarn --cwd client dev",
+    "dev": "yarn dev:server & yarn dev:client",
+    "build": "yarn --cwd client build",
+    "test:server": "yarn --cwd server test --run",
+    "test:client": "yarn --cwd client test --run",
+    "test": "yarn test:server && yarn test:client",
+    "start": "yarn build && yarn --cwd server start",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@eslint/js": "latest",
+    "eslint": "latest",
+    "eslint-config-prettier": "latest",
+    "eslint-plugin-react": "latest",
+    "globals": "latest",
+    "husky": "latest",
+    "lint-staged": "latest",
+    "prettier": "latest"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "**/*.{json,css,md}": "prettier --write"
+  }
+}
