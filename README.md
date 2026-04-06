@@ -3,7 +3,7 @@
 ![Tests](https://github.com/orangecoding/cronpilot/actions/workflows/test.yml/badge.svg)
 ![Docker](https://github.com/orangecoding/cronpilot/actions/workflows/docker.yml/badge.svg)
 
-A self-hosted cron job manager with a modern, mobile-friendly web UI. Create, edit, enable, disable, and monitor scheduled tasks that run shell scripts or inline commands. Optional push notifications via ntfy.
+A self-hosted cron job manager with a modern, mobile-friendly web UI. Create and monitor scheduled tasks that run shell scripts or inline commands. Optional push notifications via ntfy.
 
 ---
 
