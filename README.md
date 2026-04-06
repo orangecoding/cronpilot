@@ -1,10 +1,16 @@
-# CronPilot
+## CronPilot - Set it, Forget it, Stop fucking around in crontab
 
-![Tests](https://github.com/orangecoding/cronpilot/actions/workflows/test.yml/badge.svg)
-![Docker](https://github.com/orangecoding/cronpilot/actions/workflows/docker.yml/badge.svg)
+<p align="center">
+  <a href="https://cronpilot.orange-coding.net/">Website</a>
+</p>
+
+<p align="center">
+    <img src="https://github.com/orangecoding/cronpilot/actions/workflows/test.yml/badge.svg" alt="Tests" />
+  <img src="https://github.com/orangecoding/cronpilot/actions/workflows/docker.yml/badge.svg" alt="Docker" />
+</p>
 
 A self-hosted cron job manager with a modern, mobile-friendly web UI. Create and monitor scheduled tasks that run shell scripts or inline commands. Optional push notifications via ntfy.
-
+</p>
 ---
 
 ## Screenshots
