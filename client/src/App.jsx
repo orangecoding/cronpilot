@@ -1,13 +1,27 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { AppShell } from './components/layout/AppShell.jsx'
 import { JobList } from './components/jobs/JobList.jsx'
 import { JobDialog } from './components/jobs/JobDialog.jsx'
 import { DeleteConfirm } from './components/jobs/DeleteConfirm.jsx'
 import { RunHistoryPanel } from './components/runs/RunHistoryPanel.jsx'
+import { UnauthorizedPage } from './components/UnauthorizedPage.jsx'
 import { useJobs } from './hooks/useJobs.js'
 import { useToast } from './components/ui/Toast.jsx'
 
 export default function App() {
+  const [authState, setAuthState] = useState('loading') // 'loading' | 'ok' | 'unauthorized'
+
+  useEffect(() => {
+    fetch('/api/health')
+      .then((r) => r.json())
+      .then(({ secured }) => {
+        if (!secured) return setAuthState('ok')
+        const token = new URLSearchParams(window.location.search).get('token')
+        setAuthState(token ? 'ok' : 'unauthorized')
+      })
+      .catch(() => setAuthState('ok'))
+  }, [])
+
   const { jobs, isLoading, error, createJob, updateJob, deleteJob, toggleJob, triggerRun } = useJobs()
   const { addToast } = useToast()
 
@@ -48,6 +62,9 @@ export default function App() {
       addToast(e.message, 'error')
     }
   }
+
+  if (authState === 'loading') return null
+  if (authState === 'unauthorized') return <UnauthorizedPage />
 
   const sidebar = historyJob ? (
     <RunHistoryPanel job={historyJob} onClose={() => setHistoryJob(null)} />

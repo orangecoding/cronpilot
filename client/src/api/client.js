@@ -1,8 +1,12 @@
 const BASE = import.meta.env.VITE_API_BASE ?? '/api'
 
+function getToken() {
+  return new URLSearchParams(window.location.search).get('token') ?? ''
+}
+
 async function request(path, options = {}) {
   const res = await fetch(`${BASE}${path}`, {
-    headers: { 'Content-Type': 'application/json', ...options.headers },
+    headers: { 'Content-Type': 'application/json', 'X-Gateway-Token': getToken(), ...options.headers },
     ...options,
     body: options.body !== undefined ? JSON.stringify(options.body) : undefined
   })

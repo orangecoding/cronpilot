@@ -4,12 +4,19 @@ import fs from 'fs'
 import { createJobsRouter } from './routes/jobs.js'
 import { createRunsRouter } from './routes/runs.js'
 import { errorHandler } from './middleware/errorHandler.js'
+import { gatewayTokenMiddleware } from './middleware/gatewayToken.js'
 
 export function createApp(scheduler) {
   const app = express()
 
   app.use(cors())
   app.use(express.json())
+
+  app.get('/api/health', (_req, res) => {
+    res.json({ ok: true, secured: Boolean(process.env.GATEWAY_TOKEN) })
+  })
+
+  app.use('/api', gatewayTokenMiddleware)
 
   app.use('/api/jobs', createJobsRouter(scheduler))
   app.use('/api/runs', createRunsRouter())

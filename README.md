@@ -103,6 +103,54 @@ Available options:
 | `EXEC_TIMEOUT_MS` | `1800000` | Max execution time per job in milliseconds (30 min) |
 | `KEEP_MAX_FOR_HISTORY` | `5` | Maximum run history entries kept per job; older runs are deleted automatically |
 | `LOG_LEVEL` | `info` | Log verbosity: `error`, `warn`, `info`, `debug` |
+| `GATEWAY_TOKEN` | _(unset)_ | Optional shared secret to protect the UI and API (see [Security](#security)) |
+
+---
+
+## Security
+
+CronPilot supports a simple gateway token to restrict access to the UI and API. When `GATEWAY_TOKEN` is set, every API request must include the token, any request without it is rejected with `401 Unauthorized`.
+
+### Setting up the token
+
+Generate a secure random token and add it to your `.env`:
+
+```bash
+# Using openssl (recommended)
+openssl rand -hex 32
+
+# Or using Node.js
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
+
+Add the result to `.env`:
+
+```
+GATEWAY_TOKEN=a3f8c2d1e9b4...
+```
+
+### Accessing the UI
+
+Append `?token=YOUR_TOKEN` to the URL when opening CronPilot in your browser:
+
+```
+http://localhost:3001?token=YOUR_TOKEN
+```
+
+If the token is missing or incorrect, you will see an access denied page. If `GATEWAY_TOKEN` is not set, no authentication is required and the app is accessible to anyone who can reach the server.
+
+### Docker
+
+Pass the token as an environment variable:
+
+```bash
+docker run -d \
+  --name cronpilot \
+  -p 3001:3001 \
+  -v $(pwd)/db:/data \
+  -e GATEWAY_TOKEN=your_token_here \
+  ghcr.io/orangecoding/cronpilot:latest
+```
 
 ---
 
