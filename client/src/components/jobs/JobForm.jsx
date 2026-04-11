@@ -21,22 +21,22 @@ const DEFAULT_FORM = {
 function Field({ label, error, required, hint, children }) {
   return (
     <div className="space-y-1.5">
-      <label className="flex items-center gap-1 text-xs font-semibold text-[#8899bb] uppercase tracking-wide">
+      <label className="flex items-center gap-1 text-xs font-semibold text-[#909090] uppercase tracking-wide">
         {label}
         {required && <span className="text-rose-400 normal-case tracking-normal">*</span>}
       </label>
       {children}
-      {hint && !error && <p className="text-[11px] text-[#3d5070]">{hint}</p>}
+      {hint && !error && <p className="text-[11px] text-[#505050]">{hint}</p>}
       {error && <p className="text-[11px] text-rose-400">{error}</p>}
     </div>
   )
 }
 
 const inputCls = (error) =>
-  `w-full px-3 py-2.5 rounded-lg bg-[#080b14] border text-sm text-[#e1e7f0] placeholder-[#253660] focus:outline-none focus:ring-1 transition-colors ${
+  `w-full px-3 py-2.5 rounded-lg bg-[#0d0d0d] border text-sm text-[#efefef] placeholder-[#383838] focus:outline-none focus:ring-1 transition-colors ${
     error
       ? 'border-rose-500/50 focus:ring-rose-500/30 focus:border-rose-500/50'
-      : 'border-[#1a2540] focus:ring-red-500/30 focus:border-red-500/40'
+      : 'border-[#2a2a2a] focus:ring-red-500/30 focus:border-red-500/40'
   }`
 
 function PathChecker({ path }) {
@@ -52,12 +52,15 @@ function PathChecker({ path }) {
     timerRef.current = setTimeout(async () => {
       try {
         const res = await api.validatePath(path.trim())
-        if (res.exists) {
-          setStatus('ok')
-          setMessage(res.executable ? 'File found and executable' : 'File found (not executable)')
-        } else {
+        if (!res.exists) {
           setStatus('error')
           setMessage('File not found')
+        } else if (!res.isFile) {
+          setStatus('error')
+          setMessage('Path is a directory, must be a file')
+        } else {
+          setStatus('ok')
+          setMessage(res.executable ? 'File found and executable' : 'File found (not executable)')
         }
       } catch {
         setStatus('error')
@@ -72,9 +75,9 @@ function PathChecker({ path }) {
 
   return (
     <div className={`flex items-center gap-1.5 text-[11px] mt-1 ${
-      status === 'ok'       ? 'text-emerald-400' :
-      status === 'error'    ? 'text-rose-400' :
-      'text-[#3d5070]'
+      status === 'ok'    ? 'text-emerald-400' :
+      status === 'error' ? 'text-rose-400' :
+      'text-[#505050]'
     }`}>
       {status === 'checking' && <Loader size={11} className="animate-spin" />}
       {status === 'ok'       && <CheckCircle size={11} />}
@@ -86,8 +89,17 @@ function PathChecker({ path }) {
 
 const segmentCls = (active) =>
   `px-4 py-1.5 rounded-md text-xs font-medium transition-all ${
-    active ? 'bg-[#1a2540] text-[#e1e7f0] shadow-sm' : 'text-[#3d5070] hover:text-[#8899bb]'
+    active ? 'bg-[#2a2a2a] text-[#efefef] shadow-sm' : 'text-[#505050] hover:text-[#909090]'
   }`
+
+const NTFY_TOPIC_RE = /^[a-zA-Z0-9_-]{1,64}$/
+
+function ntfyTopicError(topic) {
+  if (!topic) return null
+  if (topic.length > 64) return 'Topic must be 64 characters or fewer'
+  if (!NTFY_TOPIC_RE.test(topic)) return 'Only letters, numbers, hyphens, and underscores are allowed'
+  return null
+}
 
 export function JobForm({ initialValues, onSubmit, fieldErrors = {} }) {
   const [form, setForm] = useState({ ...DEFAULT_FORM, ...initialValues })
@@ -128,7 +140,7 @@ export function JobForm({ initialValues, onSubmit, fieldErrors = {} }) {
       </Field>
 
       <Field label="Command type" required error={fieldErrors.command_type}>
-        <div className="flex rounded-lg border border-[#1a2540] p-0.5 bg-[#080b14] w-fit">
+        <div className="flex rounded-lg border border-[#2a2a2a] p-0.5 bg-[#0d0d0d] w-fit">
           <button type="button" onClick={() => set('command_type', 'inline')} className={segmentCls(form.command_type === 'inline')}>
             Inline command
           </button>
@@ -155,25 +167,25 @@ export function JobForm({ initialValues, onSubmit, fieldErrors = {} }) {
       </Field>
 
       <div className="flex items-center justify-between py-1">
-        <span className="text-xs font-semibold text-[#8899bb] uppercase tracking-wide">Enabled</span>
+        <span className="text-xs font-semibold text-[#909090] uppercase tracking-wide">Enabled</span>
         <EnableToggle enabled={form.enabled} onChange={v => set('enabled', v)} />
       </div>
 
       {/* ntfy section */}
-      <div className="rounded-xl border border-[#1a2540] overflow-hidden">
+      <div className="rounded-xl border border-[#2a2a2a] overflow-hidden">
         <button
           type="button"
           onClick={() => setNtfyOpen(o => !o)}
-          className="w-full flex items-center justify-between px-4 py-3 bg-[#080b14] hover:bg-[#0d1120] transition-colors text-xs font-semibold text-[#8899bb] uppercase tracking-wide"
+          className="w-full flex items-center justify-between px-4 py-3 bg-[#0d0d0d] hover:bg-[#161616] transition-colors text-xs font-semibold text-[#909090] uppercase tracking-wide"
         >
           <span>Notifications (ntfy)</span>
-          {ntfyOpen ? <ChevronUp size={14} className="text-[#3d5070]" /> : <ChevronDown size={14} className="text-[#3d5070]" />}
+          {ntfyOpen ? <ChevronUp size={14} className="text-[#505050]" /> : <ChevronDown size={14} className="text-[#505050]" />}
         </button>
 
         {ntfyOpen && (
-          <div className="px-4 py-4 space-y-4 border-t border-[#1a2540] bg-[#0a0d18]">
+          <div className="px-4 py-4 space-y-4 border-t border-[#2a2a2a] bg-[#111111]">
             <div className="flex items-center justify-between">
-              <span className="text-xs text-[#8899bb]">Enable notifications</span>
+              <span className="text-xs text-[#909090]">Enable notifications</span>
               <EnableToggle enabled={form.ntfy_enabled} onChange={v => set('ntfy_enabled', v)} />
             </div>
 
@@ -184,13 +196,14 @@ export function JobForm({ initialValues, onSubmit, fieldErrors = {} }) {
                     placeholder="https://ntfy.sh" className={inputCls(fieldErrors.ntfy_server)} />
                 </Field>
 
-                <Field label="Topic" required error={fieldErrors.ntfy_topic}>
+                <Field label="Topic" required error={fieldErrors.ntfy_topic || ntfyTopicError(form.ntfy_topic)}>
                   <input type="text" value={form.ntfy_topic} onChange={e => set('ntfy_topic', e.target.value)}
-                    placeholder="my-cron-alerts" className={inputCls(fieldErrors.ntfy_topic)} />
+                    placeholder="my-cron-alerts" className={inputCls(fieldErrors.ntfy_topic || ntfyTopicError(form.ntfy_topic))}
+                    maxLength={64} />
                 </Field>
 
                 <div className="space-y-2.5">
-                  <p className="text-xs font-semibold text-[#8899bb] uppercase tracking-wide">Notify when</p>
+                  <p className="text-xs font-semibold text-[#909090] uppercase tracking-wide">Notify when</p>
                   {[
                     { key: 'ntfy_on_error', label: 'Job fails (exits with error)' },
                     { key: 'ntfy_on_run',   label: 'Job runs (every execution)' }
@@ -203,14 +216,14 @@ export function JobForm({ initialValues, onSubmit, fieldErrors = {} }) {
                           onChange={e => set(key, e.target.checked)}
                           className="peer sr-only"
                         />
-                        <div className="w-4 h-4 rounded border border-[#253660] bg-[#080b14] peer-checked:bg-red-500 peer-checked:border-red-500 transition-all" />
+                        <div className="w-4 h-4 rounded border border-[#383838] bg-[#0d0d0d] peer-checked:bg-red-500 peer-checked:border-red-500 transition-all" />
                         {form[key] && (
                           <svg className="absolute w-2.5 h-2.5 text-white pointer-events-none" viewBox="0 0 10 10" fill="none">
                             <path d="M1.5 5L4 7.5L8.5 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
                         )}
                       </div>
-                      <span className="text-sm text-[#8899bb] group-hover:text-[#e1e7f0] transition-colors">{label}</span>
+                      <span className="text-sm text-[#909090] group-hover:text-[#efefef] transition-colors">{label}</span>
                     </label>
                   ))}
                 </div>
