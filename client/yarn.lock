@@ -821,6 +821,11 @@ magic-string@^0.30.21:
   dependencies:
     "@jridgewell/sourcemap-codec" "^1.5.5"
 
+marked@^18.0.0:
+  version "18.0.0"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-18.0.0.tgz#30c5b7629eb2253b8f6d83d94b376e63479076cc"
+  integrity sha512-2e7Qiv/HJSXj8rDEpgTvGKsP8yYtI9xXHKDnrftrmnrJPaFNM7VRb2YCzWaX4BP1iCJ/XPduzDJZMFoqTCcIMA==
+
 mdn-data@2.27.1:
   version "2.27.1"
   resolved "https://registry.yarnpkg.com/mdn-data/-/mdn-data-2.27.1.tgz#e37b9c50880b75366c4d40ac63d9bbcacdb61f0e"
