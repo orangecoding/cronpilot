@@ -18,3 +18,12 @@ export function validate(expr) {
     return { valid: false, error: e.message }
   }
 }
+
+export function nextRun(expr) {
+  if (!expr || !expr.trim()) return null
+  try {
+    return CronExpressionParser.parse(expr.trim()).next().toISOString()
+  } catch {
+    return null
+  }
+}

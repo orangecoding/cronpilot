@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { getDb } from '../db/index.js'
-import { validate as validateCron } from '../services/cronUtils.js'
+import { validate as validateCron, nextRun } from '../services/cronUtils.js'
 import { run as executeJob } from '../scheduler/executor.js'
 
 function formatJob(row) {
@@ -11,6 +11,7 @@ function formatJob(row) {
     description: row.description,
     cron_expr: row.cron_expr,
     cron_human: cronResult.valid ? cronResult.human : row.cron_expr,
+    next_run_at: nextRun(row.cron_expr),
     command_type: row.command_type,
     command: row.command,
     enabled: row.enabled === 1,
