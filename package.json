@@ -12,6 +12,7 @@
     "test:client": "yarn --cwd client test --run",
     "test": "yarn test:server && yarn test:client",
     "start": "yarn build && yarn --cwd server start",
+    "inst": "yarn install && yarn --cwd client install && yarn --cwd server install",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
