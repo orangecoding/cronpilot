@@ -3,6 +3,7 @@ import { Badge } from '../ui/Badge.jsx'
 import { EnableToggle } from './EnableToggle.jsx'
 import { Button } from '../ui/Button.jsx'
 import { Tooltip } from '../ui/Tooltip.jsx'
+import { MarkdownDescription } from '../ui/MarkdownDescription.jsx'
 
 function StatusBadge({ status }) {
   if (!status) return <Badge variant="neutral">Never run</Badge>
@@ -35,7 +36,7 @@ export function JobListItem({ job, onEdit, onDelete, onToggle, onTrigger, onHist
           </div>
 
           {job.description && (
-            <p className="text-xs text-[#505050] truncate mb-2">{job.description}</p>
+            <MarkdownDescription source={job.description} />
           )}
 
           <div className="flex flex-wrap items-center gap-2 mb-2">
