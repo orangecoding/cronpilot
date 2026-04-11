@@ -23,14 +23,18 @@ export function createApp(scheduler) {
 
   app.get('/api/validate-path', (req, res) => {
     const filePath = req.query.path || ''
-    if (!filePath.trim()) return res.json({ exists: false, executable: false })
+    if (!filePath.trim()) return res.json({ exists: false, isFile: false, executable: false })
     try {
       fs.accessSync(filePath, fs.constants.F_OK)
+      const stat = fs.statSync(filePath)
+      const isFile = stat.isFile()
       let executable = false
-      try { fs.accessSync(filePath, fs.constants.X_OK); executable = true } catch { /* not executable */ }
-      res.json({ exists: true, executable })
+      if (isFile) {
+        try { fs.accessSync(filePath, fs.constants.X_OK); executable = true } catch { /* not executable */ }
+      }
+      res.json({ exists: true, isFile, executable })
     } catch {
-      res.json({ exists: false, executable: false })
+      res.json({ exists: false, isFile: false, executable: false })
     }
   })
 
