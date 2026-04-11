@@ -32,9 +32,16 @@ export function JobList({ jobs, isLoading, error, onNew, onEdit, onDelete, onTog
     )
   }
 
+  const sorted = [...jobs].sort((a, b) => {
+    if (!a.next_run_at && !b.next_run_at) return 0
+    if (!a.next_run_at) return 1
+    if (!b.next_run_at) return -1
+    return new Date(a.next_run_at) - new Date(b.next_run_at)
+  })
+
   return (
     <div className="space-y-2.5">
-      {jobs.map(job => (
+      {sorted.map(job => (
         <JobListItem
           key={job.id}
           job={job}
