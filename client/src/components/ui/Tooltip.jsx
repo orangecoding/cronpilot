@@ -10,8 +10,8 @@ export function Tooltip({ children, label }) {
     if (!triggerRef.current) return
     const rect = triggerRef.current.getBoundingClientRect()
     setPos({
-      top: rect.top + window.scrollY,
-      left: rect.left + window.scrollX + rect.width / 2,
+      top: rect.top,
+      left: rect.left + rect.width / 2,
     })
     setVisible(true)
   }
@@ -26,7 +26,7 @@ export function Tooltip({ children, label }) {
       {visible && createPortal(
         <span
           style={{
-            position: 'absolute',
+            position: 'fixed',
             top: `${pos.top}px`,
             left: `${pos.left}px`,
             transform: 'translate(-50%, calc(-100% - 6px))',

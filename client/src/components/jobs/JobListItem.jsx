@@ -24,7 +24,7 @@ export function JobListItem({ job, onEdit, onDelete, onToggle, onTrigger, onHist
   return (
     <div className={`group relative rounded-xl border transition-all duration-200 ${
       job.enabled
-        ? 'bg-[#161616] border-[#2a2a2a] border-l-[3px] border-l-red-500/40 hover:border-[#383838] hover:border-l-red-500/60 hover:shadow-xl hover:shadow-black/30'
+        ? 'bg-[#161616] border-[#2a2a2a] border-l-[3px] border-l-red-500/40 hover:border-t-[#383838] hover:border-r-[#383838] hover:border-b-[#383838] hover:border-l-red-500/60 hover:shadow-xl hover:shadow-black/30'
         : 'bg-[#111111]/60 border-[#222222] opacity-60'
     }`}>
       <div className="flex items-start gap-4 p-4">
