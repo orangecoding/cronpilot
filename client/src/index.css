@@ -75,3 +75,63 @@ code, pre, .font-mono {
   border-color: var(--color-accent);
   box-shadow: 0 0 12px var(--color-accent-glow);
 }
+
+/* Markdown preview (3-line compact in job card) */
+.md-preview { line-height: 1.5; }
+.md-preview p { margin: 0; }
+.md-preview p + p { margin-top: 0.2rem; }
+.md-preview strong { color: #909090; font-weight: 600; }
+.md-preview em { color: #909090; font-style: italic; }
+.md-preview code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  background: #0d0d0d;
+  border: 1px solid #2a2a2a;
+  border-radius: 3px;
+  padding: 0 3px;
+}
+.md-preview h1, .md-preview h2, .md-preview h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #909090;
+  margin: 0 0 0.2rem;
+}
+.md-preview ul, .md-preview ol { margin: 0; padding-left: 1rem; }
+.md-preview li { margin: 0; }
+
+/* Markdown popover (full description on hover) */
+.md-popover { color: #909090; font-size: 0.75rem; line-height: 1.6; }
+.md-popover p { margin: 0 0 0.5rem; }
+.md-popover p:last-child { margin-bottom: 0; }
+.md-popover h1 { font-size: 0.875rem; font-weight: 700; color: #efefef; margin: 0 0 0.5rem; }
+.md-popover h2 { font-size: 0.8125rem; font-weight: 600; color: #efefef; margin: 0 0 0.375rem; }
+.md-popover h3 { font-size: 0.75rem; font-weight: 600; color: #efefef; margin: 0 0 0.25rem; }
+.md-popover strong { color: #efefef; font-weight: 600; }
+.md-popover em { font-style: italic; }
+.md-popover code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  background: #0d0d0d;
+  border: 1px solid #2a2a2a;
+  border-radius: 3px;
+  padding: 0 3px;
+}
+.md-popover pre {
+  background: #0d0d0d;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  overflow-x: auto;
+  margin: 0 0 0.5rem;
+}
+.md-popover pre code { background: none; border: none; padding: 0; }
+.md-popover ul, .md-popover ol { padding-left: 1.25rem; margin: 0 0 0.5rem; }
+.md-popover li { margin-bottom: 0.125rem; }
+.md-popover a { color: #fb7185; text-decoration: underline; }
+.md-popover hr { border: none; border-top: 1px solid #2a2a2a; margin: 0.5rem 0; }
+.md-popover blockquote {
+  border-left: 2px solid #383838;
+  padding-left: 0.75rem;
+  margin: 0 0 0.5rem;
+  color: #505050;
+}
