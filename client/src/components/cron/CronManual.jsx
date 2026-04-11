@@ -11,7 +11,7 @@ export function CronManual({ value, onChange, validation }) {
           value={value}
           onChange={e => onChange(e.target.value)}
           placeholder="* * * * *"
-          className="w-full px-3 py-2.5 pr-9 rounded-lg bg-[#080b14] border border-[#1a2540] text-sm font-mono text-red-300 placeholder-[#253660] focus:outline-none focus:ring-1 focus:ring-red-500/50 focus:border-red-500/50 transition-colors"
+          className="w-full px-3 py-2.5 pr-9 rounded-lg bg-[#0d0d0d] border border-[#2a2a2a] text-sm font-mono text-red-300 placeholder-[#383838] focus:outline-none focus:ring-1 focus:ring-red-500/50 focus:border-red-500/50 transition-colors"
           aria-label="Cron expression"
         />
         {!isLoading && valid !== null && (
@@ -23,7 +23,7 @@ export function CronManual({ value, onChange, validation }) {
           </span>
         )}
       </div>
-      <p className="text-[11px] text-[#3d5070] font-mono">minute &bull; hour &bull; day-of-month &bull; month &bull; day-of-week</p>
+      <p className="text-[11px] text-[#505050] font-mono">minute &bull; hour &bull; day-of-month &bull; month &bull; day-of-week</p>
     </div>
   )
 }

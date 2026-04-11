@@ -5,7 +5,7 @@ export function CronExplanation({ validation }) {
 
   if (isLoading) {
     return (
-      <div className="flex items-center gap-2 text-xs text-[#3d5070] py-1.5">
+      <div className="flex items-center gap-2 text-xs text-[#505050] py-1.5">
         <Loader size={12} className="animate-spin text-red-400/50" />
         Validating...
       </div>
@@ -30,12 +30,12 @@ export function CronExplanation({ validation }) {
         <span className="text-xs font-medium text-red-300">{human}</span>
       </div>
       {next_runs && next_runs.length > 0 && (
-        <p className="text-xs text-[#3d5070] leading-relaxed">
-          <span className="text-[#8899bb] font-medium">Next: </span>
+        <p className="text-xs text-[#505050] leading-relaxed">
+          <span className="text-[#909090] font-medium">Next: </span>
           {next_runs.map((t, i) => (
             <span key={t}>
               {new Date(t).toLocaleString()}
-              {i < next_runs.length - 1 ? <span className="text-[#253660]"> &bull; </span> : ''}
+              {i < next_runs.length - 1 ? <span className="text-[#383838]"> &bull; </span> : ''}
             </span>
           ))}
         </p>

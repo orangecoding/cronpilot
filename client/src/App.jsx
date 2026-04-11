@@ -74,8 +74,8 @@ export default function App() {
     <>
       <AppShell onNew={handleNew} sidebar={sidebar} onCloseSidebar={() => setHistoryJob(null)}>
         <div className="mb-6">
-          <h1 className="text-xl font-semibold text-[#e1e7f0] tracking-tight">Jobs</h1>
-          <p className="text-sm text-[#3d5070] mt-0.5">
+          <h1 className="text-xl font-semibold text-[#efefef] tracking-tight">Jobs</h1>
+          <p className="text-sm text-[#505050] mt-0.5">
             {jobs.length} {jobs.length === 1 ? 'job' : 'jobs'} configured
           </p>
         </div>

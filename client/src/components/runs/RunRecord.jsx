@@ -20,12 +20,12 @@ export function RunRecord({ run }) {
   const { variant, icon: Icon } = statusConfig[run.status] || { variant: 'neutral', icon: Clock }
 
   return (
-    <div className="rounded-lg border border-[#1a2540] overflow-hidden">
+    <div className="rounded-lg border border-[#2a2a2a] overflow-hidden">
       <button
         type="button"
         onClick={() => hasOutput && setExpanded(e => !e)}
-        className={`w-full flex items-center gap-3 p-3 text-left bg-[#0d1120] transition-colors ${
-          hasOutput ? 'hover:bg-[#121828] cursor-pointer' : 'cursor-default'
+        className={`w-full flex items-center gap-3 p-3 text-left bg-[#161616] transition-colors ${
+          hasOutput ? 'hover:bg-[#1e1e1e] cursor-pointer' : 'cursor-default'
         }`}
       >
         <Badge variant={variant}>
@@ -33,13 +33,13 @@ export function RunRecord({ run }) {
           {run.status}
         </Badge>
         <div className="flex-1 min-w-0">
-          <p className="text-xs text-[#8899bb]">
+          <p className="text-xs text-[#909090]">
             {new Date(run.started_at).toLocaleString()}
             {run.duration_ms != null && (
-              <span className="ml-2 text-[#3d5070]">{formatDuration(run.duration_ms)}</span>
+              <span className="ml-2 text-[#505050]">{formatDuration(run.duration_ms)}</span>
             )}
           </p>
-          <p className="text-[11px] text-[#3d5070]">
+          <p className="text-[11px] text-[#505050]">
             {run.triggered_by === 'manual' ? 'Manual trigger' : 'Scheduled'}
             {run.exit_code != null && (
               <span className="ml-2 font-mono">exit {run.exit_code}</span>
@@ -47,14 +47,14 @@ export function RunRecord({ run }) {
           </p>
         </div>
         {hasOutput && (
-          <span className="text-[#3d5070] shrink-0">
+          <span className="text-[#505050] shrink-0">
             {expanded ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
           </span>
         )}
       </button>
 
       {expanded && hasOutput && (
-        <div className="border-t border-[#1a2540] bg-[#04070f] p-3 space-y-3">
+        <div className="border-t border-[#2a2a2a] bg-[#0d0d0d] p-3 space-y-3">
           {run.stdout && (
             <div>
               <div className="flex items-center gap-1.5 mb-1.5">

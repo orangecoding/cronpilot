@@ -10,7 +10,7 @@ export function CronInput({ value, onChange }) {
 
   return (
     <div className="space-y-3">
-      <div className="flex rounded-lg border border-[#1a2540] p-0.5 bg-[#080b14] w-fit">
+      <div className="flex rounded-lg border border-[#2a2a2a] p-0.5 bg-[#0d0d0d] w-fit">
         {['builder', 'manual'].map(m => (
           <button
             key={m}
@@ -18,8 +18,8 @@ export function CronInput({ value, onChange }) {
             onClick={() => setMode(m)}
             className={`px-4 py-1.5 rounded-md text-xs font-medium capitalize transition-all ${
               mode === m
-                ? 'bg-[#1a2540] text-[#e1e7f0] shadow-sm'
-                : 'text-[#3d5070] hover:text-[#8899bb]'
+                ? 'bg-[#2a2a2a] text-[#efefef] shadow-sm'
+                : 'text-[#505050] hover:text-[#909090]'
             }`}
           >
             {m}

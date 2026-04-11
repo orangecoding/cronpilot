@@ -40,7 +40,7 @@ function stateToExpr(state) {
   return `${state.minute} ${state.hour} ${state.dayOfMonth} ${state.month} ${state.dayOfWeek}`
 }
 
-const inputCls = 'w-16 px-2 py-1.5 bg-[#080b14] border border-[#1a2540] rounded-lg text-center text-xs text-[#e1e7f0] font-mono focus:outline-none focus:ring-1 focus:ring-red-500/50 focus:border-red-500/50 transition-colors'
+const inputCls = 'w-16 px-2 py-1.5 bg-[#0d0d0d] border border-[#2a2a2a] rounded-lg text-center text-xs text-[#efefef] font-mono focus:outline-none focus:ring-1 focus:ring-red-500/50 focus:border-red-500/50 transition-colors'
 
 function FieldEditor({ field, value, onChange }) {
   const isEvery = value === '*'
@@ -66,8 +66,8 @@ function FieldEditor({ field, value, onChange }) {
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-medium text-[#8899bb]">{field.label}</span>
-        <div className="flex rounded-md overflow-hidden border border-[#1a2540] text-[11px]">
+        <span className="text-xs font-medium text-[#909090]">{field.label}</span>
+        <div className="flex rounded-md overflow-hidden border border-[#2a2a2a] text-[11px]">
           {['every', 'specific', 'range'].map(m => (
             <button
               key={m}
@@ -76,7 +76,7 @@ function FieldEditor({ field, value, onChange }) {
               className={`px-2.5 py-1 capitalize transition-colors ${
                 mode === m
                   ? 'bg-bg-red-500/20 text-red-400 border-red-500/30'
-                  : 'bg-[#080b14] text-[#3d5070] hover:text-[#8899bb]'
+                  : 'bg-[#0d0d0d] text-[#505050] hover:text-[#909090]'
               }`}
             >
               {m}
@@ -86,7 +86,7 @@ function FieldEditor({ field, value, onChange }) {
       </div>
 
       {mode === 'every' && (
-        <p className="text-[11px] text-[#3d5070]">Every {field.label.toLowerCase()}</p>
+        <p className="text-[11px] text-[#505050]">Every {field.label.toLowerCase()}</p>
       )}
 
       {mode === 'specific' && (
@@ -103,7 +103,7 @@ function FieldEditor({ field, value, onChange }) {
                 className={`px-1.5 py-0.5 rounded text-[11px] font-mono font-medium border transition-all ${
                   selected
                     ? 'bg-red-500/20 text-red-400 border-red-500/40'
-                    : 'bg-[#080b14] text-[#3d5070] border-[#1a2540] hover:text-[#8899bb] hover:border-[#253660]'
+                    : 'bg-[#0d0d0d] text-[#505050] border-[#2a2a2a] hover:text-[#909090] hover:border-[#383838]'
                 }`}
               >
                 {l}
@@ -118,7 +118,7 @@ function FieldEditor({ field, value, onChange }) {
           <input type="number" min={field.min} max={field.max} value={getRangeFrom()}
             onChange={e => onChange(`${e.target.value}-${getRangeTo()}`)}
             className={inputCls} />
-          <span className="text-[#3d5070]">to</span>
+          <span className="text-[#505050]">to</span>
           <input type="number" min={field.min} max={field.max} value={getRangeTo()}
             onChange={e => onChange(`${getRangeFrom()}-${e.target.value}`)}
             className={inputCls} />
@@ -149,7 +149,7 @@ export function CronBuilder({ value, onChange }) {
     <div className="space-y-4">
       {/* Presets */}
       <div>
-        <p className="text-[10px] font-semibold text-[#3d5070] uppercase tracking-widest mb-2">Quick presets</p>
+        <p className="text-[10px] font-semibold text-[#505050] uppercase tracking-widest mb-2">Quick presets</p>
         <div className="flex flex-wrap gap-1.5">
           {PRESETS.map(p => (
             <button
@@ -159,7 +159,7 @@ export function CronBuilder({ value, onChange }) {
               className={`px-3 py-1 rounded-full text-xs font-medium border transition-all ${
                 value === p.expr
                   ? 'bg-red-500/15 text-red-400 border-red-500/40'
-                  : 'bg-[#080b14] text-[#3d5070] border-[#1a2540] hover:text-[#8899bb] hover:border-[#253660]'
+                  : 'bg-[#0d0d0d] text-[#505050] border-[#2a2a2a] hover:text-[#909090] hover:border-[#383838]'
               }`}
             >
               {p.label}
@@ -169,15 +169,15 @@ export function CronBuilder({ value, onChange }) {
       </div>
 
       {/* Field editors */}
-      <div className="space-y-3 rounded-xl border border-[#1a2540] bg-[#080b14] p-4">
+      <div className="space-y-3 rounded-xl border border-[#2a2a2a] bg-[#0d0d0d] p-4">
         {FIELDS.map(field => (
           <FieldEditor key={field.key} field={field} value={state[field.key]} onChange={val => updateField(field.key, val)} />
         ))}
       </div>
 
       <div className="flex items-center gap-2">
-        <span className="text-[11px] text-[#3d5070]">Expression:</span>
-        <code className="text-xs font-mono bg-[#080b14] border border-[#1a2540] px-2 py-0.5 rounded-md text-red-400">
+        <span className="text-[11px] text-[#505050]">Expression:</span>
+        <code className="text-xs font-mono bg-[#0d0d0d] border border-[#2a2a2a] px-2 py-0.5 rounded-md text-red-400">
           {stateToExpr(state)}
         </code>
       </div>

@@ -15,8 +15,8 @@ export function DeleteConfirm({ job, onConfirm, onCancel }) {
         </>
       }
     >
-      <p className="text-sm text-[#8899bb] leading-relaxed">
-        Are you sure you want to delete <span className="text-[#e1e7f0] font-medium">"{job.name}"</span>?
+      <p className="text-sm text-[#909090] leading-relaxed">
+        Are you sure you want to delete <span className="text-[#efefef] font-medium">"{job.name}"</span>?
         This will also remove all run history. This action cannot be undone.
       </p>
     </Dialog>
