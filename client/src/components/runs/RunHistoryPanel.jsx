@@ -10,13 +10,13 @@ export function RunHistoryPanel({ job, onClose }) {
   const { runs, total, isLoading, error, loadMore, hasMore, refresh } = useRunHistory(job?.id)
 
   return (
-    <div className="flex flex-col h-full bg-[#0d1120]">
-      <div className="flex items-center justify-between px-4 py-3 border-b border-[#1a2540] shrink-0 bg-[#080b14]">
+    <div className="flex flex-col h-full bg-[#161616]">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-[#2a2a2a] shrink-0 bg-[#0d0d0d]">
         <div className="flex items-center gap-2.5">
           <History size={14} className="text-red-400/60" />
           <div>
-            <h2 className="text-sm font-semibold text-[#e1e7f0] leading-none">{job?.name}</h2>
-            <p className="text-[11px] text-[#3d5070] mt-0.5">{total} run{total !== 1 ? 's' : ''}</p>
+            <h2 className="text-sm font-semibold text-[#efefef] leading-none">{job?.name}</h2>
+            <p className="text-[11px] text-[#505050] mt-0.5">{total} run{total !== 1 ? 's' : ''}</p>
           </div>
         </div>
         <div className="flex items-center gap-1">

@@ -24,8 +24,8 @@ export function JobListItem({ job, onEdit, onDelete, onToggle, onTrigger, onHist
   return (
     <div className={`group relative rounded-xl border transition-all duration-200 overflow-hidden ${
       job.enabled
-        ? 'bg-[#0d1120] border-[#1a2540] hover:border-[#253660] hover:shadow-xl hover:shadow-black/30'
-        : 'bg-[#0a0d18]/60 border-[#141e33] opacity-60'
+        ? 'bg-[#161616] border-[#2a2a2a] hover:border-[#383838] hover:shadow-xl hover:shadow-black/30'
+        : 'bg-[#111111]/60 border-[#222222] opacity-60'
     }`}>
       {/* Accent left bar */}
       {job.enabled && (
@@ -35,25 +35,25 @@ export function JobListItem({ job, onEdit, onDelete, onToggle, onTrigger, onHist
       <div className="flex items-start gap-4 p-4 pl-5">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <h3 className="font-semibold text-[#e1e7f0] truncate text-sm">{job.name}</h3>
+            <h3 className="font-semibold text-[#efefef] truncate text-sm">{job.name}</h3>
             {!job.enabled && <Badge variant="neutral">Disabled</Badge>}
           </div>
 
           {job.description && (
-            <p className="text-xs text-[#3d5070] truncate mb-2">{job.description}</p>
+            <p className="text-xs text-[#505050] truncate mb-2">{job.description}</p>
           )}
 
           <div className="flex flex-wrap items-center gap-2 mb-2">
-            <code className="text-xs bg-[#080b14] text-red-400/80 px-2 py-0.5 rounded-md font-mono border border-[#1a2540]">
+            <code className="text-xs bg-[#0d0d0d] text-red-400/80 px-2 py-0.5 rounded-md font-mono border border-[#2a2a2a]">
               {job.cron_expr}
             </code>
-            <span className="text-xs text-[#3d5070]">{job.cron_human}</span>
+            <span className="text-xs text-[#505050]">{job.cron_human}</span>
           </div>
 
           <div className="flex items-center gap-3">
             <StatusBadge status={job.last_run_status} />
             {job.last_run_at && (
-              <span className="text-xs text-[#3d5070]">
+              <span className="text-xs text-[#505050]">
                 {new Date(job.last_run_at).toLocaleString()}
               </span>
             )}
