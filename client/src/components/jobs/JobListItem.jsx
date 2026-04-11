@@ -22,17 +22,12 @@ function StatusBadge({ status }) {
 
 export function JobListItem({ job, onEdit, onDelete, onToggle, onTrigger, onHistory }) {
   return (
-    <div className={`group relative rounded-xl border transition-all duration-200 overflow-hidden ${
+    <div className={`group relative rounded-xl border transition-all duration-200 ${
       job.enabled
-        ? 'bg-[#161616] border-[#2a2a2a] hover:border-[#383838] hover:shadow-xl hover:shadow-black/30'
+        ? 'bg-[#161616] border-[#2a2a2a] border-l-[3px] border-l-red-500/40 hover:border-[#383838] hover:border-l-red-500/60 hover:shadow-xl hover:shadow-black/30'
         : 'bg-[#111111]/60 border-[#222222] opacity-60'
     }`}>
-      {/* Accent left bar */}
-      {job.enabled && (
-        <div className="absolute left-0 top-3 bottom-3 w-0.5 bg-gradient-to-b from-red-400/60 via-red-500/40 to-red-400/10 rounded-full" />
-      )}
-
-      <div className="flex items-start gap-4 p-4 pl-5">
+      <div className="flex items-start gap-4 p-4">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
             <h3 className="font-semibold text-[#efefef] truncate text-sm">{job.name}</h3>
