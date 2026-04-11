@@ -1,10 +1,44 @@
+import { useState, useRef } from 'react'
+import { createPortal } from 'react-dom'
+
 export function Tooltip({ children, label }) {
+  const [visible, setVisible] = useState(false)
+  const [pos, setPos] = useState({ top: 0, left: 0 })
+  const triggerRef = useRef(null)
+
+  function show() {
+    if (!triggerRef.current) return
+    const rect = triggerRef.current.getBoundingClientRect()
+    setPos({
+      top: rect.top + window.scrollY,
+      left: rect.left + window.scrollX + rect.width / 2,
+    })
+    setVisible(true)
+  }
+
+  function hide() {
+    setVisible(false)
+  }
+
   return (
-    <div className="relative group/tip inline-flex">
+    <div ref={triggerRef} className="inline-flex" onMouseEnter={show} onMouseLeave={hide}>
       {children}
-      <span className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-1 text-[11px] font-medium text-[#e1e7f0] bg-[#1a2540] border border-[#253660] rounded-md whitespace-nowrap z-50 opacity-0 group-hover/tip:opacity-100 transition-opacity duration-150 shadow-lg">
-        {label}
-      </span>
+      {visible && createPortal(
+        <span
+          style={{
+            position: 'absolute',
+            top: `${pos.top}px`,
+            left: `${pos.left}px`,
+            transform: 'translate(-50%, calc(-100% - 6px))',
+            zIndex: 9999,
+            pointerEvents: 'none',
+          }}
+          className="px-2 py-1 text-[11px] font-medium text-[#efefef] bg-[#2a2a2a] border border-[#383838] rounded-md whitespace-nowrap shadow-lg"
+        >
+          {label}
+        </span>,
+        document.body
+      )}
     </div>
   )
 }
