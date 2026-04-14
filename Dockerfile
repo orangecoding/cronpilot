@@ -36,6 +36,7 @@ COPY --from=builder /app/server/node_modules ./server/node_modules
 COPY --from=builder /app/client/dist ./client/dist
 COPY server/src ./server/src
 COPY server/package.json ./server/
+COPY package.json ./
 
 RUN mkdir -p /data
 
