@@ -1,12 +1,12 @@
-const VERSION = '1.0.0'
-
-export function Footer() {
+export function Footer({ version }) {
   return (
     <footer className="mt-auto border-t border-[#2a2a2a] bg-[#0d0d0d]/60 px-5 sm:px-8 py-4 flex items-center justify-between gap-4">
       <span className="flex items-center gap-2 text-xs text-[#505050] font-mono">
-        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-[#1e1e1e] border border-[#2a2a2a] text-[#909090]">
-          <span className="text-[#505050]">v</span>{VERSION}
-        </span>
+        {version && (
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-[#1e1e1e] border border-[#2a2a2a] text-[#909090]">
+            <span className="text-[#505050]">v</span>{version}
+          </span>
+        )}
       </span>
       <span className="text-xs text-[#505050]">
         Made with{' '}

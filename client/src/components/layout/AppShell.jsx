@@ -1,7 +1,14 @@
+import { useEffect, useState } from 'react'
+import { api } from '../../api/client.js'
 import { Header } from './Header.jsx'
 import { Footer } from './Footer.jsx'
 
 export function AppShell({ onNew, sidebar, onCloseSidebar, children }) {
+  const [version, setVersion] = useState(null)
+
+  useEffect(() => {
+    api.getVersion().then(data => setVersion(data.version)).catch(() => {})
+  }, [])
   return (
     <div className="min-h-screen flex flex-col">
       <Header onNew={onNew} />
@@ -26,7 +33,7 @@ export function AppShell({ onNew, sidebar, onCloseSidebar, children }) {
           {children}
         </main>
       </div>
-      <Footer />
+      <Footer version={version} />
     </div>
   )
 }

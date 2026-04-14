@@ -36,5 +36,6 @@ export const api = {
   getRuns: (id, params = {}) => request(`/jobs/${id}/runs?${new URLSearchParams(params)}`),
   getRun: (runId) => request(`/runs/${runId}`),
   validateCron: (expr) => request(`/jobs/validate?expr=${encodeURIComponent(expr)}`),
-  validatePath: (path) => request(`/validate-path?path=${encodeURIComponent(path)}`)
+  validatePath: (path) => request(`/validate-path?path=${encodeURIComponent(path)}`),
+  getVersion: () => request('/version')
 }

@@ -6,6 +6,8 @@ import { createRunsRouter } from './routes/runs.js'
 import { errorHandler } from './middleware/errorHandler.js'
 import { gatewayTokenMiddleware } from './middleware/gatewayToken.js'
 
+const pkg = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url), 'utf8'))
+
 export function createApp(scheduler) {
   const app = express()
 
@@ -14,6 +16,10 @@ export function createApp(scheduler) {
 
   app.get('/api/health', (_req, res) => {
     res.json({ ok: true, secured: Boolean(process.env.GATEWAY_TOKEN) })
+  })
+
+  app.get('/api/version', (_req, res) => {
+    res.json({ version: pkg.version })
   })
 
   app.use('/api', gatewayTokenMiddleware)
