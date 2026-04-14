@@ -6,7 +6,7 @@ import { createRunsRouter } from './routes/runs.js'
 import { errorHandler } from './middleware/errorHandler.js'
 import { gatewayTokenMiddleware } from './middleware/gatewayToken.js'
 
-const pkg = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url), 'utf8'))
+const pkg = JSON.parse(fs.readFileSync(new URL('../../package.json', import.meta.url), 'utf8'))
 
 export function createApp(scheduler) {
   const app = express()
