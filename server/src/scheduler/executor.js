@@ -17,10 +17,6 @@ export function run(job, triggeredBy = 'scheduler') {
   const runId = runResult.lastInsertRowid
   logger.info({ jobId: job.id, runId, triggeredBy }, `Job "${job.name}" started`)
 
-  if (job.ntfy_enabled && job.ntfy_on_run) {
-    ntfySend(job, { status: 'running' }).catch(() => {})
-  }
-
   const child = job.command_type === 'inline'
     ? spawn('/bin/sh', ['-c', job.command], { stdio: ['ignore', 'pipe', 'pipe'] })
     : spawn(job.command, [], { shell: true, stdio: ['ignore', 'pipe', 'pipe'] })
@@ -74,13 +70,13 @@ export function run(job, triggeredBy = 'scheduler') {
       )
     `).run(job.id, job.id, maxRuns)
 
-    logger.info({ jobId: job.id, runId, status, exitCode, duration }, `Job "${job.name}" finished`)
-
     if (status === 'error' && job.ntfy_enabled && job.ntfy_on_error) {
       ntfySend(job, { status, exitCode, stderr }).catch(() => {})
     } else if (status === 'success' && job.ntfy_enabled && job.ntfy_on_run) {
       ntfySend(job, { status, exitCode }).catch(() => {})
     }
+
+    logger.info({ jobId: job.id, runId, status, exitCode, duration }, `Job "${job.name}" finished`)
   })
 
   return runId

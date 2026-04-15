@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ChevronDown, ChevronUp, CheckCircle, XCircle, Clock, Terminal } from 'lucide-react'
 import { Badge } from '../ui/Badge.jsx'
+import { formatLocalDate } from '../../utils/date.js'
 
 function formatDuration(ms) {
   if (!ms) return null
@@ -34,7 +35,7 @@ export function RunRecord({ run }) {
         </Badge>
         <div className="flex-1 min-w-0">
           <p className="text-xs text-[#909090]">
-            {new Date(run.started_at).toLocaleString()}
+            {formatLocalDate(run.started_at)}
             {run.duration_ms != null && (
               <span className="ml-2 text-[#505050]">{formatDuration(run.duration_ms)}</span>
             )}

@@ -1,3 +1,4 @@
+import { logger } from '../logger.js'
 export async function send(job, context) {
   if (!job.ntfy_enabled || !job.ntfy_topic) return
   try {
@@ -19,7 +20,8 @@ export async function send(job, context) {
       },
       body
     })
-  } catch {
+  } catch (error) {
+    logger.error({error}, 'Failed to send notification to ntfy')
     // ntfy errors must never affect job execution
   }
 }

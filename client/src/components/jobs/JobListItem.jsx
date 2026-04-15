@@ -4,6 +4,7 @@ import { EnableToggle } from './EnableToggle.jsx'
 import { Button } from '../ui/Button.jsx'
 import { Tooltip } from '../ui/Tooltip.jsx'
 import { MarkdownDescription } from '../ui/MarkdownDescription.jsx'
+import { formatLocalDate } from '../../utils/date.js'
 
 function StatusBadge({ status }) {
   if (!status) return <Badge variant="neutral">Never run</Badge>
@@ -50,7 +51,7 @@ export function JobListItem({ job, onEdit, onDelete, onToggle, onTrigger, onHist
             <StatusBadge status={job.last_run_status} />
             {job.last_run_at && (
               <span className="text-xs text-[#505050]">
-                {new Date(job.last_run_at).toLocaleString()}
+                {formatLocalDate(job.last_run_at)}
               </span>
             )}
           </div>

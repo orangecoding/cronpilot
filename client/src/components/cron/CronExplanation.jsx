@@ -1,4 +1,5 @@
 import { Clock, AlertCircle, Loader } from 'lucide-react'
+import { formatLocalDate } from '../../utils/date.js'
 
 export function CronExplanation({ validation }) {
   const { valid, human, next_runs, error, isLoading } = validation
@@ -34,7 +35,7 @@ export function CronExplanation({ validation }) {
           <span className="text-[#909090] font-medium">Next: </span>
           {next_runs.map((t, i) => (
             <span key={t}>
-              {new Date(t).toLocaleString()}
+              {formatLocalDate(t)}
               {i < next_runs.length - 1 ? <span className="text-[#383838]"> &bull; </span> : ''}
             </span>
           ))}
