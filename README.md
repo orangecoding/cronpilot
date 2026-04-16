@@ -11,7 +11,6 @@
 </p>
 
 A self-hosted cron job manager with a modern, mobile-friendly web UI. Create and monitor scheduled tasks that run shell scripts or inline commands. Optional push notifications via ntfy.
-</p>
 
 ## Screenshots
 
