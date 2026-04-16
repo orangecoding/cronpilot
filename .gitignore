@@ -6,3 +6,4 @@ client/node_modules/
 *.db
 client/dist/
 .DS_Store
+/docs/superpowers
