@@ -32,7 +32,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // Configuration and Paths
 const CONFIG_PATH = path.join('/Users/chriz/dev/private/release-tool', 'config.json');
 const PACKAGE_JSON_PATH = path.join(__dirname, '../../package.json');
-const REPO = 'orangecoding/nanowiki';
+const REPO = 'orangecoding/cronpilot';
 const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
 const GITHUB_TOKEN = config.github_token;
 
