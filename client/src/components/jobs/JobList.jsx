@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2026 by Christian Kellner.
+ * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
+ */
+
 import { Timer, Plus } from 'lucide-react'
 import { LoadingSpinner } from '../ui/LoadingSpinner.jsx'
 import { EmptyState } from '../ui/EmptyState.jsx'

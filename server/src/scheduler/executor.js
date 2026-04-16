@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2026 by Christian Kellner.
+ * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
+ */
+
 import { spawn } from 'child_process'
 import { getDb } from '../db/index.js'
 import { send as ntfySend } from '../services/ntfy.js'

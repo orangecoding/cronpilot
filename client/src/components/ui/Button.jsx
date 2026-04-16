@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2026 by Christian Kellner.
+ * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
+ */
+
 export function Button({ children, variant = 'primary', size = 'md', icon: Icon, disabled, onClick, type = 'button', className = '', ...rest }) {
   const base = 'inline-flex items-center gap-1.5 font-medium rounded-lg transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-offset-[#161616] disabled:opacity-40 disabled:cursor-not-allowed'
 

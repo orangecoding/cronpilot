@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2026 by Christian Kellner.
+ * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
+ */
+
 /**
  * Parses a date string as UTC and formats it in the browser's locale and timezone.
  * Handles both ISO 8601 strings (with 'Z') and SQLite datetime strings (without timezone info).

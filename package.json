@@ -1,6 +1,6 @@
 {
   "name": "cronpilot",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "author": "Christian Kellner",
   "license": "Apache-2.0",
   "scripts": {
@@ -16,7 +16,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "copyright": "node ./tools/copyright.js",
+    "release": "node ./tools/release/release.js"
   },
   "devDependencies": {
     "@eslint/js": "latest",
@@ -28,10 +30,12 @@
     "lint-staged": "latest",
     "prettier": "latest"
   },
+  "type": "module",
   "lint-staged": {
     "**/*.{js,jsx}": [
       "eslint --fix",
-      "prettier --write"
+      "prettier --write",
+      "yarn copyright"
     ],
     "**/*.{json,css,md}": "prettier --write"
   }

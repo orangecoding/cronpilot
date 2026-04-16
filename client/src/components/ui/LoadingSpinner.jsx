@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2026 by Christian Kellner.
+ * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
+ */
+
 export function LoadingSpinner({ size = 'md', className = '' }) {
   const sizes = { sm: 16, md: 24, lg: 40 }
   const px = sizes[size] || 24

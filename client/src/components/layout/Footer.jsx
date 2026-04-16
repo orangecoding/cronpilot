@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2026 by Christian Kellner.
+ * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
+ */
+
 export function Footer({ version }) {
   return (
     <footer className="mt-auto border-t border-[#2a2a2a] bg-[#0d0d0d]/60 px-5 sm:px-8 py-4 flex items-center justify-between gap-4">

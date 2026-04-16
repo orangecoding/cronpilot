@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2026 by Christian Kellner.
+ * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
+ */
+
 import cron from 'node-cron'
 import { getDb } from '../db/index.js'
 import { run as executeJob } from './executor.js'

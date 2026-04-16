@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2026 by Christian Kellner.
+ * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
+ */
+
 import { createContext, useCallback, useContext, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { CheckCircle, XCircle, X } from 'lucide-react'

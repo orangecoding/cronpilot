@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2026 by Christian Kellner.
+ * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
+ */
+
 export function Badge({ children, variant = 'neutral', size = 'sm' }) {
   const variants = {
     success: 'bg-emerald-400/10 text-emerald-400 border border-emerald-400/20',
