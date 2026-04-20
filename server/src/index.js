@@ -3,21 +3,17 @@
  * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
  */
 
-import dotenv from 'dotenv'
 import path from 'path'
 import fs from 'fs'
 import { fileURLToPath } from 'url'
 import express from 'express'
+import { PROJECT_ROOT } from './env.js'
 import { initDb, closeDb } from './db/index.js'
 import { createApp } from './app.js'
 import { createScheduler } from './scheduler/index.js'
 import { logger } from './logger.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const PROJECT_ROOT = path.join(__dirname, '../..')
-
-// Load .env from the project root regardless of cwd
-dotenv.config({ path: path.join(PROJECT_ROOT, '.env') })
 
 const PORT = process.env.PORT || 3001
 const HOST = process.env.HOST || '127.0.0.1'

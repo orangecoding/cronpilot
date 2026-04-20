@@ -3,6 +3,7 @@
  * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
  */
 
+import './env.js'
 import pino from 'pino'
 
 export const logger = pino({
