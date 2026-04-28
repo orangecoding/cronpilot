@@ -30,12 +30,13 @@ function connectSSE() {
   })
 }
 
-function collectData(res, count = 1) {
-  return new Promise((resolve) => {
+function collectData(res, count = 1, timeoutMs = 2000) {
+  return new Promise((resolve, reject) => {
     const chunks = []
+    const timer = setTimeout(() => reject(new Error('collectData timeout')), timeoutMs)
     res.on('data', (chunk) => {
       chunks.push(chunk.toString())
-      if (chunks.length >= count) resolve(chunks.join(''))
+      if (chunks.length >= count) { clearTimeout(timer); resolve(chunks.join('')) }
     })
   })
 }

@@ -37,10 +37,13 @@ export function createApp(scheduler) {
     res.setHeader('Content-Type', 'text/event-stream')
     res.setHeader('Cache-Control', 'no-cache')
     res.setHeader('Connection', 'keep-alive')
+    res.setHeader('X-Accel-Buffering', 'no')
     res.flushHeaders()
 
     function send(eventName, data) {
-      res.write(`event: ${eventName}\ndata: ${JSON.stringify(data)}\n\n`)
+      if (!res.writableEnded) {
+        res.write(`event: ${eventName}\ndata: ${JSON.stringify(data)}\n\n`)
+      }
     }
 
     const onStarted = (data) => send('run:started', data)
