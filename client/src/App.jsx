@@ -54,10 +54,12 @@ export default function App() {
   const handleEdit   = (job) => setDialogState({ mode: 'edit', job })
   const handleDelete = (job) => setDeleteTarget(job)
   const handleHistory = (job) => {
-    setHistoryJob(job)
-    // When the same job is re-selected, jobId doesn't change so useRunHistory's
-    // useEffect won't re-fire. refresh() handles that case (no-op when jobId is null).
-    runHistory.refresh()
+    setHistoryJob(prev => {
+      // When the same job is re-selected the jobId doesn't change, so useRunHistory's
+      // useEffect won't re-fire. Refresh explicitly for that case only.
+      if (prev?.id === job.id) runHistory.refresh()
+      return job
+    })
   }
 
   const handleSave = async (formData) => {
