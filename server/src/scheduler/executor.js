@@ -77,9 +77,9 @@ export function run(job, triggeredBy = 'scheduler') {
     `).run(job.id, job.id, Number(process.env.KEEP_MAX_FOR_HISTORY) || 5)
 
     if (status === 'error' && job.ntfy_enabled && job.ntfy_on_error) {
-      ntfySend(job, { status, exitCode, stderr }).catch(() => {})
+      ntfySend(job, { status, exitCode, stderr }).catch((e) => logger.error({ error: e }, 'ntfy send failed'))
     } else if (status === 'success' && job.ntfy_enabled && job.ntfy_on_run) {
-      ntfySend(job, { status, exitCode }).catch(() => {})
+      ntfySend(job, { status, exitCode }).catch((e) => logger.error({ error: e }, 'ntfy send failed'))
     }
 
     eventBus.emit('run:finished', { jobId: job.id, runId, status, exitCode, duration_ms: duration })
