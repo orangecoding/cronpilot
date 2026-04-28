@@ -9,6 +9,7 @@ export function gatewayTokenMiddleware(req, res, next) {
   const token = process.env.GATEWAY_TOKEN
   if (!token) return next()
 
+  // EventSource cannot set custom headers, so SSE clients send the token as ?token=...
   const provided = req.headers['x-gateway-token'] || req.query.token || ''
   if (!provided) {
     return res.status(401).json({ error: 'Unauthorized: invalid or missing gateway token' })
