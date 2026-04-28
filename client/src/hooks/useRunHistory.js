@@ -45,6 +45,7 @@ export function useRunHistory(jobId) {
     fetchRuns(offset + limit)
   }, [fetchRuns, offset, limit])
 
+  // Intentionally resets to page 1 so the new run appears at the top
   const handleRunFinished = useCallback((data) => {
     if (data.jobId === jobId) fetchRuns(0)
   }, [jobId, fetchRuns])
