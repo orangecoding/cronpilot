@@ -16,6 +16,7 @@ export function useJobEvents({ onRunStarted, onRunFinished }) {
   const onStartedRef = useRef(onRunStarted)
   const onFinishedRef = useRef(onRunFinished)
 
+  // Sync latest callbacks each render so the EventSource effect below never goes stale
   useEffect(() => {
     onStartedRef.current = onRunStarted
     onFinishedRef.current = onRunFinished
@@ -27,9 +28,14 @@ export function useJobEvents({ onRunStarted, onRunFinished }) {
     const es = new EventSource(url)
 
     es.onopen = () => setConnected(true)
+    // EventSource auto-retries on transient errors; connected returns to true on onopen
     es.onerror = () => setConnected(false)
-    es.addEventListener('run:started', (e) => onStartedRef.current(JSON.parse(e.data)))
-    es.addEventListener('run:finished', (e) => onFinishedRef.current(JSON.parse(e.data)))
+    es.addEventListener('run:started', (e) => {
+      try { onStartedRef.current(JSON.parse(e.data)) } catch { /* malformed payload */ }
+    })
+    es.addEventListener('run:finished', (e) => {
+      try { onFinishedRef.current(JSON.parse(e.data)) } catch { /* malformed payload */ }
+    })
 
     return () => {
       es.close()
