@@ -55,6 +55,8 @@ export default function App() {
   const handleDelete = (job) => setDeleteTarget(job)
   const handleHistory = (job) => {
     setHistoryJob(job)
+    // When the same job is re-selected, jobId doesn't change so useRunHistory's
+    // useEffect won't re-fire. refresh() handles that case (no-op when jobId is null).
     runHistory.refresh()
   }
 
