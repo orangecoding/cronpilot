@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "lucide-react": "latest",
-    "marked": "^18.0.0",
+    "marked": "^18.0.2",
     "react": "latest",
     "react-dom": "latest"
   },
