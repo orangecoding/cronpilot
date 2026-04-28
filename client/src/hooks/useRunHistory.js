@@ -45,5 +45,14 @@ export function useRunHistory(jobId) {
     fetchRuns(offset + limit)
   }, [fetchRuns, offset, limit])
 
-  return { runs, total, isLoading, error, loadMore, hasMore: runs.length < total, refresh: () => fetchRuns(0) }
+  const handleRunFinished = useCallback((data) => {
+    if (data.jobId === jobId) fetchRuns(0)
+  }, [jobId, fetchRuns])
+
+  return {
+    runs, total, isLoading, error,
+    loadMore, hasMore: runs.length < total,
+    refresh: () => fetchRuns(0),
+    handleRunFinished,
+  }
 }
