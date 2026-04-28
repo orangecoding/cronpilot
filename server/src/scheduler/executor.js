@@ -7,6 +7,7 @@ import { spawn } from 'child_process'
 import { getDb } from '../db/index.js'
 import { send as ntfySend } from '../services/ntfy.js'
 import { logger } from '../logger.js'
+import { eventBus } from '../services/eventBus.js'
 
 const MAX_OUTPUT_BYTES = 512 * 1024
 
@@ -21,6 +22,7 @@ export function run(job, triggeredBy = 'scheduler') {
 
   const runId = runResult.lastInsertRowid
   logger.info({ jobId: job.id, runId, triggeredBy }, `Job "${job.name}" started`)
+  eventBus.emit('run:started', { jobId: job.id, runId, triggeredBy })
 
   const child = job.command_type === 'inline'
     ? spawn('/bin/sh', ['-c', job.command], { stdio: ['ignore', 'pipe', 'pipe'] })
@@ -67,13 +69,12 @@ export function run(job, triggeredBy = 'scheduler') {
       WHERE id = ?
     `).run(status, exitCode, stdout, stderr, duration, runId)
 
-    const maxRuns = Number(process.env.KEEP_MAX_FOR_HISTORY) || 5
     db.prepare(`
       DELETE FROM runs
       WHERE job_id = ? AND id NOT IN (
         SELECT id FROM runs WHERE job_id = ? ORDER BY id DESC LIMIT ?
       )
-    `).run(job.id, job.id, maxRuns)
+    `).run(job.id, job.id, Number(process.env.KEEP_MAX_FOR_HISTORY) || 5)
 
     if (status === 'error' && job.ntfy_enabled && job.ntfy_on_error) {
       ntfySend(job, { status, exitCode, stderr }).catch(() => {})
@@ -81,6 +82,7 @@ export function run(job, triggeredBy = 'scheduler') {
       ntfySend(job, { status, exitCode }).catch(() => {})
     }
 
+    eventBus.emit('run:finished', { jobId: job.id, runId, status, exitCode, duration_ms: duration })
     logger.info({ jobId: job.id, runId, status, exitCode, duration }, `Job "${job.name}" finished`)
   })
 
