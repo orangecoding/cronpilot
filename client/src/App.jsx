@@ -11,6 +11,8 @@ import { DeleteConfirm } from './components/jobs/DeleteConfirm.jsx'
 import { RunHistoryPanel } from './components/runs/RunHistoryPanel.jsx'
 import { UnauthorizedPage } from './components/UnauthorizedPage.jsx'
 import { useJobs } from './hooks/useJobs.js'
+import { useRunHistory } from './hooks/useRunHistory.js'
+import { useJobEvents } from './hooks/useJobEvents.js'
 import { useToast } from './components/ui/Toast.jsx'
 
 export default function App() {
@@ -27,17 +29,38 @@ export default function App() {
       .catch(() => setAuthState('ok'))
   }, [])
 
-  const { jobs, isLoading, error, createJob, updateJob, deleteJob, toggleJob, triggerRun } = useJobs()
+  const {
+    jobs, isLoading, error,
+    createJob, updateJob, deleteJob, toggleJob, triggerRun,
+    updateRunStarted, updateRunFinished,
+  } = useJobs()
   const { addToast } = useToast()
 
   const [dialogState, setDialogState] = useState(null)
   const [deleteTarget, setDeleteTarget] = useState(null)
   const [historyJob, setHistoryJob] = useState(null)
 
+  const runHistory = useRunHistory(historyJob?.id)
+
+  useJobEvents({
+    onRunStarted: updateRunStarted,
+    onRunFinished: (data) => {
+      updateRunFinished(data)
+      runHistory.handleRunFinished(data)
+    },
+  })
+
   const handleNew    = () => setDialogState({ mode: 'create' })
   const handleEdit   = (job) => setDialogState({ mode: 'edit', job })
   const handleDelete = (job) => setDeleteTarget(job)
-  const handleHistory = (job) => setHistoryJob(job)
+  const handleHistory = (job) => {
+    setHistoryJob(prev => {
+      // When the same job is re-selected the jobId doesn't change, so useRunHistory's
+      // useEffect won't re-fire. Refresh explicitly for that case only.
+      if (prev?.id === job.id) runHistory.refresh()
+      return job
+    })
+  }
 
   const handleSave = async (formData) => {
     if (dialogState.mode === 'create') {
@@ -72,7 +95,17 @@ export default function App() {
   if (authState === 'unauthorized') return <UnauthorizedPage />
 
   const sidebar = historyJob ? (
-    <RunHistoryPanel job={historyJob} onClose={() => setHistoryJob(null)} />
+    <RunHistoryPanel
+      job={historyJob}
+      runs={runHistory.runs}
+      total={runHistory.total}
+      isLoading={runHistory.isLoading}
+      error={runHistory.error}
+      loadMore={runHistory.loadMore}
+      hasMore={runHistory.hasMore}
+      refresh={runHistory.refresh}
+      onClose={() => setHistoryJob(null)}
+    />
   ) : null
 
   return (

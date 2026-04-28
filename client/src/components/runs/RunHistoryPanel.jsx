@@ -4,16 +4,13 @@
  */
 
 import { X, RefreshCw, History } from 'lucide-react'
-import { useRunHistory } from '../../hooks/useRunHistory.js'
 import { RunRecord } from './RunRecord.jsx'
 import { LoadingSpinner } from '../ui/LoadingSpinner.jsx'
 import { EmptyState } from '../ui/EmptyState.jsx'
 import { Button } from '../ui/Button.jsx'
 import { Tooltip } from '../ui/Tooltip.jsx'
 
-export function RunHistoryPanel({ job, onClose }) {
-  const { runs, total, isLoading, error, loadMore, hasMore, refresh } = useRunHistory(job?.id)
-
+export function RunHistoryPanel({ job, runs, total, isLoading, error, loadMore, hasMore, refresh, onClose }) {
   return (
     <div className="flex flex-col h-full bg-[#161616]">
       <div className="flex items-center justify-between px-4 py-3 border-b border-[#2a2a2a] shrink-0 bg-[#0d0d0d]">

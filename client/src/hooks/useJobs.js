@@ -56,5 +56,18 @@ export function useJobs() {
     return res.data
   }, [])
 
-  return { jobs, isLoading, error, createJob, updateJob, deleteJob, toggleJob, triggerRun, refresh: fetchJobs }
+  const updateRunStarted = useCallback(({ jobId }) => {
+    setJobs(prev => prev.map(j => j.id === jobId ? { ...j, last_run_status: 'running' } : j))
+  }, [])
+
+  const updateRunFinished = useCallback(({ jobId, status }) => {
+    setJobs(prev => prev.map(j => j.id === jobId ? { ...j, last_run_status: status } : j))
+  }, [])
+
+  return {
+    jobs, isLoading, error,
+    createJob, updateJob, deleteJob, toggleJob, triggerRun,
+    refresh: fetchJobs,
+    updateRunStarted, updateRunFinished,
+  }
 }
